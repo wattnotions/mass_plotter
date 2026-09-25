@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Upload a weight CSV and explore the interactive plot.">
+    <title>Weight Plotter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='vendor/plotly.min.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="toolbar">
+        <div class="brand-area">
+          <div class="brand"><span aria-hidden="true"></span>Weight Plotter</div>
+          <div class="help-wrap">
+            <button id="help-button" class="help-button" type="button" aria-label="Show app tutorial">?</button>
+            <div id="help-nudge" class="help-nudge" hidden>Click here for app info</div>
+          </div>
+        </div>
+        <div class="toolbar-actions">
+          <span id="file-name" class="file-name"></span>
+          <label class="upload-button" for="csv-file">
+            <span aria-hidden="true">↑</span> Upload CSV
+          </label>
+          <input id="csv-file" type="file" accept=".csv,text/csv">
+        </div>
+      </header>
+
+      <section class="plot-panel" aria-live="polite">
+        <div id="plot-wrap" class="plot-wrap">
+          <div id="weight-plot" class="weight-plot" aria-label="Interactive plot of weight over time"></div>
+
+          <div id="empty-state" class="empty-state">
+            <strong>No weight data yet</strong>
+            <span>Upload a CSV to draw the plot.</span>
+          </div>
+
+          <div id="next-point-prompt" class="chart-overlay next-point-prompt" hidden>
+            <span class="prompt-dot" aria-hidden="true"></span>
+            <div><strong>Start point selected</strong><span id="start-point-summary"></span></div>
+            <b>Now click a second weekly average</b>
+          </div>
+
+          <aside id="weekly-hover-card" class="chart-overlay weekly-hover-card" hidden>
+            <span>WEEKLY AVERAGE</span>
+            <strong id="hover-weight"></strong>
+            <small id="hover-week"></small>
+            <small id="hover-count"></small>
+          </aside>
+
+          <aside id="trend-card" class="chart-overlay trend-card" hidden>
+            <button id="clear-trend" class="close-button" type="button" aria-label="Clear selected trend">×</button>
+            <span class="trend-label">MASS CHANGE</span>
+            <strong id="trend-change" class="trend-change"></strong>
+            <span id="trend-range" class="trend-range"></span>
+            <div class="trend-details">
+              <span><small>Start</small><b id="trend-start"></b></span>
+              <span><small>End</small><b id="trend-end"></b></span>
+              <span><small>Per week</small><b id="trend-weekly"></b></span>
+              <span><small>Duration</small><b id="trend-duration"></b></span>
+            </div>
+          </aside>
+        </div>
+
+        <div id="error-message" class="toast error-message" role="alert" hidden></div>
+        <div id="warning-message" class="toast warning-message" hidden></div>
+      </section>
+
+      <div id="tutorial-card" class="tutorial-card" hidden>
+        <small id="tutorial-progress"></small>
+        <strong id="tutorial-message"></strong>
+        <span id="tutorial-hint">Click anywhere to continue</span>
+      </div>
+      <div id="tutorial-pointer" class="tutorial-pointer" hidden></div>
+      <div id="tutorial-click-layer" class="tutorial-click-layer" hidden aria-label="Click to continue tutorial"></div>
+    </main>
+  </body>
+</html>

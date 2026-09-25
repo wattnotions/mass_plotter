@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.pytest_cache/
+
+# Local source exports; the curated tutorial sample is tracked separately.
+chart.csv
+weights.csv
